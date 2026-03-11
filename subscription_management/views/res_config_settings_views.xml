@@ -44,6 +44,16 @@
                                 </div>
                             </div>
                         </setting>
+                        <setting string="Overdue Reminder Interval"
+                                 help="Minimum days between overdue payment reminder emails">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="subscription_overdue_reminder_interval"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="subscription_overdue_reminder_interval"/>
+                                </div>
+                            </div>
+                        </setting>
                     </block>
                 </app>
             </xpath>
