@@ -4,7 +4,7 @@
     <!-- Root Menu -->
     <menuitem id="menu_subscription_root"
               name="Subscriptions"
-              web_icon="subscription_management,static/description/icon.png"
+              web_icon="subscription_management,static/description/icon.svg"
               sequence="25"/>
 
     <!-- Subscribers (main menu) -->

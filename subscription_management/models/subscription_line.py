@@ -124,6 +124,11 @@ class SubscriptionLine(models.Model):
         copy=False,
         help='Date since the subscription has an unpaid invoice past due.',
     )
+    last_reminder_sent = fields.Date(
+        string='Last Reminder Sent',
+        copy=False,
+        help='Date when the last payment reminder email was sent.',
+    )
 
     @api.depends('subscriber_id.partner_id.name', 'plan_id.name')
     def _compute_name(self):
@@ -277,6 +282,7 @@ class SubscriptionLine(models.Model):
             'invoice_ids': [Command.link(invoice.id)],
             'last_invoice_date': period_start,
             'next_invoice_date': self._compute_next_period_date(period_start),
+            'last_reminder_sent': False,
         })
 
         _logger.info(
@@ -443,6 +449,7 @@ class SubscriptionLine(models.Model):
         active_lines = self.search([
             ('state', '=', 'active'),
             ('next_invoice_date', '!=', False),
+            ('last_reminder_sent', '=', False),
         ])
 
         for line in active_lines:
@@ -452,12 +459,13 @@ class SubscriptionLine(models.Model):
             reminder_date = line.next_invoice_date - relativedelta(
                 days=reminder_days
             )
-            if today == reminder_date:
+            if today >= reminder_date:
                 try:
                     template = self.env.ref(
                         'subscription_management.email_template_payment_reminder'
                     )
                     template.send_mail(line.id, force_send=False)
+                    line.last_reminder_sent = today
                     _logger.info(
                         "Sent pre-due reminder for line %s", line.id
                     )
@@ -469,12 +477,25 @@ class SubscriptionLine(models.Model):
             ('state', '=', 'pending_payment'),
         ])
 
+        reminder_interval = int(
+            self.env['ir.config_parameter'].sudo().get_param(
+                'subscription_management.overdue_reminder_interval_days', '3'
+            )
+        )
+
         for line in pending_lines:
+            if line.last_reminder_sent:
+                next_reminder = line.last_reminder_sent + relativedelta(
+                    days=reminder_interval
+                )
+                if today < next_reminder:
+                    continue
             try:
                 template = self.env.ref(
                     'subscription_management.email_template_overdue_reminder'
                 )
                 template.send_mail(line.id, force_send=False)
+                line.last_reminder_sent = today
                 _logger.info("Sent overdue reminder for line %s", line.id)
             except Exception as e:
                 _logger.error("Error sending overdue reminder: %s", e)

@@ -117,6 +117,7 @@
 </div>
 ]]>
             </field>
+            <field name="report_template_ids" eval="[(6, 0, [ref('account.account_invoices')])]"/>
             <field name="auto_delete" eval="True"/>
         </record>
 

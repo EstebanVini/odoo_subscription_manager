@@ -26,3 +26,10 @@ class ResConfigSettings(models.TransientModel):
         help='Send a payment reminder this many days before the invoice '
              'due date. Can be overridden per subscription line.',
     )
+    subscription_overdue_reminder_interval = fields.Integer(
+        string='Overdue Reminder Interval (Days)',
+        config_parameter='subscription_management.overdue_reminder_interval_days',
+        default=3,
+        help='Minimum number of days between overdue reminder emails '
+             'for the same subscription.',
+    )
