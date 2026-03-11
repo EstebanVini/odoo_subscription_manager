@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
 
         <!-- Generate invoices daily -->
         <record id="ir_cron_generate_invoices" model="ir.cron">
@@ -54,5 +53,4 @@
             <field name="doall">False</field>
         </record>
 
-    </data>
 </odoo>
