@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+    <record id="subscription_line_view_form" model="ir.ui.view">
+        <field name="name">subscription.line.form</field>
+        <field name="model">subscription.line</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Line">
+                <header>
+                    <button name="action_activate" string="Activate"
+                            type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cancel" string="Cancel"
+                            type="object"
+                            invisible="state in ('cancelled',)"
+                            confirm="Are you sure you want to cancel this subscription?"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_invoices"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o">
+                            <field name="invoice_count" widget="statbutton"
+                                   string="Invoices"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Subscription Details">
+                            <field name="subscriber_id"/>
+                            <field name="partner_id"/>
+                            <field name="plan_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Dates">
+                            <field name="start_date"/>
+                            <field name="next_invoice_date"/>
+                            <field name="end_date"/>
+                            <field name="last_invoice_date"/>
+                            <field name="overdue_since"
+                                   invisible="not overdue_since"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Overdue / Penalty Configuration">
+                            <field name="grace_days"
+                                   help="0 = use global setting"/>
+                            <field name="penalty_amount"
+                                   help="0 = use global setting"/>
+                            <field name="reminder_days_before"
+                                   help="0 = use global setting"/>
+                        </group>
+                        <group string="Company">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="subscription_line_view_tree" model="ir.ui.view">
+        <field name="name">subscription.line.tree</field>
+        <field name="model">subscription.line</field>
+        <field name="arch" type="xml">
+            <tree string="Subscription Lines">
+                <field name="subscriber_id"/>
+                <field name="partner_id"/>
+                <field name="plan_id"/>
+                <field name="start_date"/>
+                <field name="next_invoice_date"/>
+                <field name="end_date" optional="hide"/>
+                <field name="invoice_count" string="Invoices"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'pending_payment'"
+                       decoration-danger="state == 'paused'"
+                       decoration-info="state == 'draft'"
+                       decoration-muted="state == 'cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="subscription_line_view_search" model="ir.ui.view">
+        <field name="name">subscription.line.search</field>
+        <field name="model">subscription.line</field>
+        <field name="arch" type="xml">
+            <search string="Subscription Lines">
+                <field name="subscriber_id"/>
+                <field name="partner_id"/>
+                <field name="plan_id"/>
+                <separator/>
+                <filter string="Active" name="active_lines"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Pending Payment" name="pending"
+                        domain="[('state', '=', 'pending_payment')]"/>
+                <filter string="Paused" name="paused"
+                        domain="[('state', '=', 'paused')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Subscriber" name="group_subscriber"
+                            context="{'group_by': 'subscriber_id'}"/>
+                    <filter string="Plan" name="group_plan"
+                            context="{'group_by': 'plan_id'}"/>
+                    <filter string="Status" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_subscription_line_all" model="ir.actions.act_window">
+        <field name="name">Subscription Lines</field>
+        <field name="res_model">subscription.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="subscription_line_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No subscription lines yet
+            </p>
+        </field>
+    </record>
+
+</odoo>

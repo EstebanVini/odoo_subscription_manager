@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="subscription_payment_wizard_view_form" model="ir.ui.view">
+        <field name="name">subscription.payment.wizard.form</field>
+        <field name="model">subscription.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <group>
+                    <field name="subscriber_id" readonly="1"/>
+                    <field name="subscription_line_id"/>
+                    <field name="available_invoice_ids" invisible="1"/>
+                    <field name="invoice_id"/>
+                    <field name="invoice_ref" invisible="not invoice_id"/>
+                    <field name="invoice_amount_residual" invisible="not invoice_id"/>
+                </group>
+                <group invisible="not invoice_id">
+                    <group string="Payment Details">
+                        <field name="amount"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="payment_journal_id"/>
+                        <field name="payment_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_pay"
+                            string="Pay Now"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not invoice_id"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

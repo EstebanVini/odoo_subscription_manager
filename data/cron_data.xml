@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Generate invoices daily -->
+        <record id="ir_cron_generate_invoices" model="ir.cron">
+            <field name="name">Subscription: Generate Invoices</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_generate_invoices()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall">False</field>
+        </record>
+
+        <!-- Check overdue payments daily -->
+        <record id="ir_cron_check_overdue" model="ir.cron">
+            <field name="name">Subscription: Check Overdue Payments</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_check_overdue_payments()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall">False</field>
+        </record>
+
+        <!-- Check grace period expiration daily -->
+        <record id="ir_cron_check_grace_period" model="ir.cron">
+            <field name="name">Subscription: Check Grace Period</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_check_grace_period()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall">False</field>
+        </record>
+
+        <!-- Send payment reminders daily -->
+        <record id="ir_cron_payment_reminders" model="ir.cron">
+            <field name="name">Subscription: Send Payment Reminders</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_send_payment_reminders()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall">False</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Payment Reminder (before due date) -->
+        <record id="email_template_payment_reminder" model="mail.template">
+            <field name="name">Subscription: Payment Reminder</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="subject">Payment Reminder - {{ object.plan_id.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.subscriber_id.partner_id.email }}</field>
+            <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>
+    <p>
+        This is a friendly reminder that your subscription payment for
+        <strong>{{ object.plan_id.name }}</strong> is due on
+        <strong>{{ object.next_invoice_date }}</strong>.
+    </p>
+    <p>
+        <strong>Amount:</strong> {{ object.plan_id.amount }} {{ object.currency_id.name }}
+    </p>
+    <p>Please ensure timely payment to avoid any interruptions to your service.</p>
+    <br/>
+    <p>Best regards,<br/>{{ object.company_id.name }}</p>
+</div>
+]]>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <!-- Overdue Payment Reminder -->
+        <record id="email_template_overdue_reminder" model="mail.template">
+            <field name="name">Subscription: Overdue Payment</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="subject">OVERDUE: Payment Required - {{ object.plan_id.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.subscriber_id.partner_id.email }}</field>
+            <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>
+    <p style="color: #c0392b;">
+        <strong>Your subscription payment is overdue.</strong>
+    </p>
+    <p>
+        Your subscription <strong>{{ object.plan_id.name }}</strong>
+        (Ref: {{ object.subscriber_id.name }}) has an outstanding balance.
+    </p>
+    <p>
+        If payment is not received within the grace period, your subscription
+        will be paused and a late payment penalty may be applied.
+    </p>
+    <p>Please make your payment as soon as possible.</p>
+    <br/>
+    <p>Best regards,<br/>{{ object.company_id.name }}</p>
+</div>
+]]>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <!-- Subscription Paused Notification -->
+        <record id="email_template_subscription_paused" model="mail.template">
+            <field name="name">Subscription: Paused Notification</field>
+            <field name="model_id" ref="model_subscription_line"/>
+            <field name="subject">Subscription Paused - {{ object.plan_id.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.subscriber_id.partner_id.email }}</field>
+            <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>
+    <p style="color: #c0392b;">
+        <strong>Your subscription has been paused due to non-payment.</strong>
+    </p>
+    <p>
+        Your subscription <strong>{{ object.plan_id.name }}</strong>
+        (Ref: {{ object.subscriber_id.name }}) has been paused because
+        payment was not received within the grace period.
+    </p>
+    <p>
+        A late payment penalty has been applied to your account.
+        Please settle all outstanding invoices to reactivate your subscription.
+    </p>
+    <br/>
+    <p>Best regards,<br/>{{ object.company_id.name }}</p>
+</div>
+]]>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <!-- Invoice Paid Confirmation (sent from account.move) -->
+        <record id="email_template_invoice_paid" model="mail.template">
+            <field name="name">Subscription: Invoice Paid Confirmation</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">Payment Confirmation - {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.partner_id.name }},</p>
+    <p>
+        We have received your payment for invoice <strong>{{ object.name }}</strong>.
+    </p>
+    <p>
+        <strong>Amount Paid:</strong> {{ object.amount_total }} {{ object.currency_id.name }}<br/>
+        <strong>Invoice Date:</strong> {{ object.invoice_date }}<br/>
+        <strong>Reference:</strong> {{ object.ref or '' }}
+    </p>
+    <p>Thank you for your prompt payment!</p>
+    <br/>
+    <p>Best regards,<br/>{{ object.company_id.name }}</p>
+</div>
+]]>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

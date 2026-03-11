@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_subscription_default" model="product.product">
+            <field name="name">Subscription Service</field>
+            <field name="type">service</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Recurring subscription service</field>
+        </record>
+
+        <record id="product_subscription_penalty" model="product.product">
+            <field name="name">Late Payment Penalty</field>
+            <field name="type">service</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Penalty for late payment on subscription</field>
+        </record>
+    </data>
+</odoo>

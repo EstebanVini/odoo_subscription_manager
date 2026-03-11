@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_subscription" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.subscription</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Subscriptions"
+                     string="Subscriptions"
+                     name="subscription_management"
+                     groups="subscription_management.group_subscription_manager">
+                    <block title="Payment &amp; Penalties" name="payment_penalties">
+                        <setting string="Default Grace Days"
+                                 help="Days after due date before pausing a subscription">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="subscription_default_grace_days"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="subscription_default_grace_days"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Default Penalty Amount"
+                                 help="Penalty charged when grace period expires">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="subscription_default_penalty_amount"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="subscription_default_penalty_amount"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Reminders" name="reminders">
+                        <setting string="Default Reminder Days Before Due"
+                                 help="Send payment reminder this many days before invoice is due">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="subscription_default_reminder_days_before"
+                                           class="col-lg-3 o_light_label"/>
+                                    <field name="subscription_default_reminder_days_before"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

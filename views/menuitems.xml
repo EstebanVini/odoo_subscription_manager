@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Root Menu -->
+    <menuitem id="menu_subscription_root"
+              name="Subscriptions"
+              web_icon="subscription_management,static/description/icon.png"
+              sequence="25"/>
+
+    <!-- Subscribers (main menu) -->
+    <menuitem id="menu_subscription_subscribers"
+              name="Subscribers"
+              parent="menu_subscription_root"
+              action="action_subscription_subscriber"
+              sequence="10"/>
+
+    <!-- Subscription Lines -->
+    <menuitem id="menu_subscription_lines"
+              name="Subscription Lines"
+              parent="menu_subscription_root"
+              action="action_subscription_line_all"
+              sequence="20"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_subscription_config"
+              name="Configuration"
+              parent="menu_subscription_root"
+              groups="subscription_management.group_subscription_manager"
+              sequence="90"/>
+
+    <menuitem id="menu_subscription_plans"
+              name="Subscription Plans"
+              parent="menu_subscription_config"
+              action="action_subscription_plan"
+              sequence="10"/>
+
+    <menuitem id="menu_subscription_settings"
+              name="Settings"
+              parent="menu_subscription_config"
+              action="base.action_general_configuration"
+              sequence="90"/>
+
+</odoo>
