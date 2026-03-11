@@ -1,1 +1,0 @@
-# odoo-subscription-manager
