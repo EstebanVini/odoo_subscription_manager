@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_subscription_stage_user,subscription.stage.user,model_subscription_stage,base.group_user,1,1,1,1
-access_subscription_subscriber_user,subscription.subscriber.user,model_subscription_subscriber,base.group_user,1,1,1,1
-access_subscription_record_user,subscription.record.user,model_subscription_record,base.group_user,1,1,1,1
-access_subscription_payment_wizard_user,subscription.payment.wizard.user,model_subscription_payment_wizard,base.group_user,1,1,1,1
