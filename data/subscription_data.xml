@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequence for subscription references -->
+    <record id="sequence_subscription_subscription" model="ir.sequence">
+        <field name="name">Subscription Reference</field>
+        <field name="code">subscription.subscription</field>
+        <field name="prefix">SUB</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!-- Default configuration parameters -->
+    <record id="config_subscription_grace_days" model="ir.config_parameter">
+        <field name="key">subscription.grace_days</field>
+        <field name="value">5</field>
+    </record>
+
+    <record id="config_subscription_penalty_amount" model="ir.config_parameter">
+        <field name="key">subscription.penalty_amount</field>
+        <field name="value">0.0</field>
+    </record>
+
+    <record id="config_subscription_reminder_days" model="ir.config_parameter">
+        <field name="key">subscription.reminder_days</field>
+        <field name="value">3</field>
+    </record>
+
+</odoo>

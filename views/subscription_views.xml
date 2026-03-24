@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         SUBSCRIPTION PLAN VIEWS
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <record id="subscription_plan_view_tree" model="ir.ui.view">
+        <field name="name">subscription.plan.tree</field>
+        <field name="model">subscription.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Subscription Plans">
+                <field name="name"/>
+                <field name="recurring_interval"/>
+                <field name="recurring_rule_type"/>
+                <field name="price"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+                <field name="product_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="subscription_plan_view_form" model="ir.ui.view">
+        <field name="name">subscription.plan.form</field>
+        <field name="model">subscription.plan</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Plan">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Plan name..."/></h1>
+                    </div>
+                    <group>
+                        <group string="Billing">
+                            <field name="recurring_interval"/>
+                            <field name="recurring_rule_type"/>
+                            <field name="price"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </group>
+                        <group string="Product">
+                            <field name="product_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Plan description..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="subscription_plan_view_search" model="ir.ui.view">
+        <field name="name">subscription.plan.search</field>
+        <field name="model">subscription.plan</field>
+        <field name="arch" type="xml">
+            <search string="Subscription Plans">
+                <field name="name"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_subscription_plan" model="ir.actions.act_window">
+        <field name="name">Subscription Plans</field>
+        <field name="res_model">subscription.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_active': 1}</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         SUBSCRIPTION SUBSCRIBER VIEWS
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Kanban view - main entry point -->
+    <record id="subscription_subscriber_view_kanban" model="ir.ui.view">
+        <field name="name">subscription.subscriber.kanban</field>
+        <field name="model">subscription.subscriber</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    group_create="false"
+                    group_delete="false"
+                    group_edit="false"
+                    class="o_kanban_small_column">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="subscription_count"/>
+                <field name="invoice_count"/>
+                <field name="activity_ids"/>
+                <templates>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold fs-5"/>
+                        <div class="text-muted">
+                            <i class="fa fa-user me-1"/>
+                            <field name="partner_id"/>
+                        </div>
+                        <div class="d-flex mt-2 gap-2">
+                            <span class="badge rounded-pill text-bg-light">
+                                <i class="fa fa-refresh me-1"/>
+                                <t t-esc="record.subscription_count.value"/> subs
+                            </span>
+                            <span class="badge rounded-pill text-bg-light">
+                                <i class="fa fa-file-text-o me-1"/>
+                                <t t-esc="record.invoice_count.value"/> invoices
+                            </span>
+                        </div>
+                        <div class="o_kanban_record_bottom mt-2">
+                            <div class="oe_kanban_bottom_left">
+                                <field name="activity_ids" widget="kanban_activity"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- List view -->
+    <record id="subscription_subscriber_view_tree" model="ir.ui.view">
+        <field name="name">subscription.subscriber.tree</field>
+        <field name="model">subscription.subscriber</field>
+        <field name="arch" type="xml">
+            <tree string="Subscribers"
+                  decoration-success="state == 'active'"
+                  decoration-warning="state == 'pending_payment'"
+                  decoration-danger="state == 'paused'"
+                  decoration-muted="state in ('draft', 'finished')">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="portal_user_id" optional="show"/>
+                <field name="subscription_count"/>
+                <field name="invoice_count"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'pending_payment'"
+                       decoration-danger="state == 'paused'"
+                       decoration-secondary="state in ('draft', 'finished')"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="subscription_subscriber_view_form" model="ir.ui.view">
+        <field name="name">subscription.subscriber.form</field>
+        <field name="model">subscription.subscriber</field>
+        <field name="arch" type="xml">
+            <form string="Subscriber">
+                <header>
+                    <button name="action_activate"
+                            string="Activate"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state not in ('draft',)"/>
+                    <button name="action_open_payment_wizard"
+                            string="Register Payment"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state not in ('pending_payment', 'paused')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,pending_payment,paused,finished"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_payment_wizard"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-credit-card"
+                                invisible="state not in ('pending_payment', 'paused')">
+                            <span class="o_stat_text">Pay Now</span>
+                        </button>
+                        <button name="action_view_subscriptions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-refresh"
+                                invisible="subscription_count == 0">
+                            <field name="subscription_count" widget="statinfo" string="Subscriptions"/>
+                        </button>
+                        <button name="action_view_invoices"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                invisible="invoice_count == 0">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>
+
+                    <widget name="web_ribbon" title="Archived" invisible="active"/>
+
+                    <div class="oe_title">
+                        <label for="partner_id"/>
+                        <h1>
+                            <field name="partner_id"
+                                   placeholder="Select contact..."
+                                   readonly="state not in ('draft',)"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Contact">
+                            <field name="portal_user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Status">
+                            <field name="state" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Subscriptions" name="subscriptions">
+                            <field name="subscription_ids"
+                                   readonly="state == 'finished'">
+                                <tree editable="bottom"
+                                      decoration-success="state == 'active'"
+                                      decoration-warning="state == 'pending_payment'"
+                                      decoration-danger="state == 'paused'"
+                                      decoration-muted="state in ('draft', 'finished')">
+                                    <field name="name" readonly="1"/>
+                                    <field name="plan_id"/>
+                                    <field name="price"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="date_start"/>
+                                    <field name="date_next_invoice"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'active'"
+                                           decoration-warning="state == 'pending_payment'"
+                                           decoration-danger="state == 'paused'"
+                                           decoration-secondary="state in ('draft', 'finished')"/>
+                                    <button name="action_activate"
+                                            string="Activate"
+                                            type="object"
+                                            icon="fa-play"
+                                            invisible="state not in ('draft', 'paused')"/>
+                                    <button name="action_pause"
+                                            string="Pause"
+                                            type="object"
+                                            icon="fa-pause"
+                                            invisible="state not in ('active', 'pending_payment')"/>
+                                    <button name="action_finish"
+                                            string="Finish"
+                                            type="object"
+                                            icon="fa-stop"
+                                            invisible="state == 'finished'"/>
+                                    <button name="action_view_invoices"
+                                            string="Invoices"
+                                            type="object"
+                                            icon="fa-file-text-o"
+                                            invisible="invoice_count == 0"/>
+                                </tree>
+                                <form string="Subscription">
+                                    <group>
+                                        <group>
+                                            <field name="name" readonly="1"/>
+                                            <field name="plan_id"/>
+                                            <field name="price"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="state" readonly="1"/>
+                                            <field name="date_start"/>
+                                            <field name="date_end" invisible="not date_end"/>
+                                            <field name="date_next_invoice"/>
+                                            <field name="pending_since" invisible="not pending_since"/>
+                                        </group>
+                                    </group>
+                                    <group string="Invoices" invisible="invoice_count == 0">
+                                        <button name="action_view_invoices"
+                                                string="View Invoices"
+                                                type="object"
+                                                class="btn-link"
+                                                icon="fa-external-link"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note" placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view -->
+    <record id="subscription_subscriber_view_search" model="ir.ui.view">
+        <field name="name">subscription.subscriber.search</field>
+        <field name="model">subscription.subscriber</field>
+        <field name="arch" type="xml">
+            <search string="Subscribers">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_pending" string="Pending Payment"
+                        domain="[('state', '=', 'pending_payment')]"/>
+                <filter name="filter_paused" string="Paused"
+                        domain="[('state', '=', 'paused')]"/>
+                <filter name="filter_finished" string="Finished"
+                        domain="[('state', '=', 'finished')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="groupby_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Window Actions -->
+    <record id="action_subscription_subscriber" model="ir.actions.act_window">
+        <field name="name">Subscribers</field>
+        <field name="res_model">subscription.subscriber</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first subscriber
+            </p>
+            <p>
+                Manage recurring subscriptions, track payments, and send automated reminders.
+            </p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CONFIG SETTINGS VIEW
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <record id="res_config_settings_view_form_subscription" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.subscription</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Subscriptions"
+                     string="Subscriptions"
+                     data-key="odoo_subscription_manager"
+                     groups="base.group_system">
+                    <block title="Billing Rules">
+                        <setting string="Grace Period"
+                                 help="Number of days after the due date before a subscription is automatically paused.">
+                            <div class="content-group">
+                                <div class="row mt-2">
+                                    <label for="subscription_grace_days" class="col-lg-4"/>
+                                    <field name="subscription_grace_days" class="col-lg-2"/>
+                                    <span class="col-lg-6 text-muted">days</span>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Late Payment Penalty"
+                                 help="Fixed amount invoiced as penalty when a subscription is paused. Set to 0 to disable.">
+                            <div class="content-group">
+                                <div class="row mt-2">
+                                    <label for="subscription_penalty_amount" class="col-lg-4"/>
+                                    <field name="subscription_penalty_amount" class="col-lg-4"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Email Reminders">
+                        <setting string="Payment Reminder"
+                                 help="Number of days before the due date to send a payment reminder email.">
+                            <div class="content-group">
+                                <div class="row mt-2">
+                                    <label for="subscription_reminder_days" class="col-lg-4"/>
+                                    <field name="subscription_reminder_days" class="col-lg-2"/>
+                                    <span class="col-lg-6 text-muted">days before due date</span>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Settings Action -->
+    <record id="action_subscription_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'odoo_subscription_manager'}</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         MENU STRUCTURE
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <menuitem id="menu_subscription_root"
+              name="Subscriptions"
+              sequence="90"
+              groups="odoo_subscription_manager.group_subscription_user"/>
+
+    <menuitem id="menu_subscription_subscribers"
+              name="Subscribers"
+              parent="menu_subscription_root"
+              action="action_subscription_subscriber"
+              sequence="10"
+              groups="odoo_subscription_manager.group_subscription_user"/>
+
+    <menuitem id="menu_subscription_configuration"
+              name="Configuration"
+              parent="menu_subscription_root"
+              sequence="100"
+              groups="odoo_subscription_manager.group_subscription_manager"/>
+
+    <menuitem id="menu_subscription_plans"
+              name="Plans"
+              parent="menu_subscription_configuration"
+              action="action_subscription_plan"
+              sequence="10"
+              groups="odoo_subscription_manager.group_subscription_manager"/>
+
+    <menuitem id="menu_subscription_settings"
+              name="Settings"
+              parent="menu_subscription_configuration"
+              action="action_subscription_config_settings"
+              sequence="20"
+              groups="base.group_system"/>
+
+</odoo>

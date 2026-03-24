@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Template 1: Payment Reminder (sent N days before due date)
+         Model: subscription.subscription
+         ═══════════════════════════════════════════════════════════════ -->
+    <record id="email_template_payment_reminder" model="mail.template">
+        <field name="name">Subscription: Payment Reminder</field>
+        <field name="model_id" ref="model_subscription_subscription"/>
+        <field name="subject">Payment Reminder - {{ object.plan_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+        <field name="email_to">{{ object.subscriber_id.partner_id.email }}</field>
+        <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>
+    <p>
+        This is a friendly reminder that your upcoming payment for
+        <strong>{{ object.plan_id.name }}</strong> is due on
+        <strong>{{ object.date_next_invoice }}</strong>.
+    </p>
+    <table style="border-collapse: collapse; width: 100%; margin: 16px 0;">
+        <tr style="background-color: #f5f5f5;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Subscription</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Plan</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.plan_id.name }}</td>
+        </tr>
+        <tr style="background-color: #f5f5f5;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Amount</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.price }} {{ object.currency_id.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Due Date</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.date_next_invoice }}</td>
+        </tr>
+    </table>
+    <p>Please ensure your payment is made on time to avoid service interruption.</p>
+    <p>Thank you for your continued support.</p>
+    <br/>
+    <p>Best regards,<br/><strong>{{ object.company_id.name }}</strong></p>
+</div>
+]]>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Template 2: Overdue Payment Notification
+         Model: subscription.subscription
+         ═══════════════════════════════════════════════════════════════ -->
+    <record id="email_template_overdue_notification" model="mail.template">
+        <field name="name">Subscription: Overdue Payment Notification</field>
+        <field name="model_id" ref="model_subscription_subscription"/>
+        <field name="subject">Action Required: Overdue Payment - {{ object.plan_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+        <field name="email_to">{{ object.subscriber_id.partner_id.email }}</field>
+        <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>
+    <p style="color: #d32f2f;">
+        <strong>Your payment for {{ object.plan_id.name }} is overdue.</strong>
+        Your subscription has been placed on <strong>Pending Payment</strong> status.
+    </p>
+    <table style="border-collapse: collapse; width: 100%; margin: 16px 0;">
+        <tr style="background-color: #fce4e4;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Subscription</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Plan</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.plan_id.name }}</td>
+        </tr>
+        <tr style="background-color: #fce4e4;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Amount Due</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.price }} {{ object.currency_id.name }}</td>
+        </tr>
+    </table>
+    <p>
+        Please make your payment as soon as possible to avoid having your subscription
+        suspended and additional penalty charges.
+    </p>
+    <p>If you have any questions, please contact us immediately.</p>
+    <br/>
+    <p>Best regards,<br/><strong>{{ object.company_id.name }}</strong></p>
+</div>
+]]>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Template 3: Payment Confirmation (sent after payment)
+         Model: account.move
+         ═══════════════════════════════════════════════════════════════ -->
+    <record id="email_template_payment_confirmation" model="mail.template">
+        <field name="name">Subscription: Payment Confirmation</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="subject">Payment Confirmed - {{ object.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="body_html" type="html">
+<![CDATA[
+<div style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+    <p>Dear {{ object.partner_id.name }},</p>
+    <p style="color: #2e7d32;">
+        <strong>Your payment has been successfully received. Thank you!</strong>
+    </p>
+    <table style="border-collapse: collapse; width: 100%; margin: 16px 0;">
+        <tr style="background-color: #e8f5e9;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Invoice</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Date</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.invoice_date }}</td>
+        </tr>
+        <tr style="background-color: #e8f5e9;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Amount Paid</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.amount_total }} {{ object.currency_id.name }}</td>
+        </tr>
+        <t t-if="object.subscription_id">
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Subscription</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.subscription_id.plan_id.name }}</td>
+        </tr>
+        </t>
+    </table>
+    <p>Your subscription remains active. We appreciate your continued support.</p>
+    <br/>
+    <p>Best regards,<br/><strong>{{ object.company_id.name }}</strong></p>
+</div>
+]]>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>
