@@ -1,0 +1,763 @@
+# Spanish translation for odoo_subscription_manager
+# Copyright (C) 2024 Esteban Viniegra | Eviniegra Software
+# License LGPL-3.0
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: Esteban Viniegra <contacto@eviniegra.software>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Models
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_subscription_plan
+msgid "Subscription Plan"
+msgstr "Plan de Suscripción"
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_subscription_subscription
+msgid "Subscription"
+msgstr "Suscripción"
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_subscription_subscriber
+msgid "Subscription Subscriber"
+msgstr "Suscriptor"
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_subscription_payment_wizard
+msgid "Subscription Payment Wizard"
+msgstr "Asistente de Pago de Suscripción"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# subscription.plan fields
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__name
+msgid "Plan Name"
+msgstr "Nombre del Plan"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__product_id
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_plan__product_id
+msgid "Product used in invoices for this plan"
+msgstr "Producto utilizado en las facturas de este plan"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__recurring_interval
+msgid "Billing Period"
+msgstr "Período de Facturación"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_plan__recurring_interval
+msgid "Number of intervals between invoices"
+msgstr "Número de intervalos entre facturas"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__recurring_rule_type
+msgid "Billing Frequency"
+msgstr "Frecuencia de Facturación"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_plan__recurring_rule_type__daily
+msgid "Day(s)"
+msgstr "Día(s)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_plan__recurring_rule_type__weekly
+msgid "Week(s)"
+msgstr "Semana(s)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_plan__recurring_rule_type__monthly
+msgid "Month(s)"
+msgstr "Mes(es)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_plan__recurring_rule_type__yearly
+msgid "Year(s)"
+msgstr "Año(s)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__price
+msgid "Price"
+msgstr "Precio"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__penalty_product_id
+msgid "Penalty Product"
+msgstr "Producto de Penalización"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_plan__penalty_product_id
+msgid "Product added as a line on the penalty invoice when this subscription is paused for non-payment. Leave empty to disable penalties for this plan."
+msgstr "Producto que se agrega como línea en la factura de penalización cuando esta suscripción se pausa por falta de pago. Déjelo vacío para deshabilitar las penalizaciones en este plan."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_form
+msgid "Penalties"
+msgstr "Penalizaciones"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__description
+msgid "Description"
+msgstr "Descripción"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# subscription.subscription fields
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__name
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__subscriber_id
+msgid "Subscriber"
+msgstr "Suscriptor"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__plan_id
+msgid "Plan"
+msgstr "Plan"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__state
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscription__state__draft
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscriber__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscription__state__active
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscriber__state__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscription__state__pending_payment
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscriber__state__pending_payment
+msgid "Pending Payment"
+msgstr "Pago Pendiente"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscription__state__paused
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscriber__state__paused
+msgid "Paused"
+msgstr "Pausado"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscription__state__finished
+#: model:ir.model.fields.selection,name:odoo_subscription_manager.selection__subscription_subscriber__state__finished
+msgid "Finished"
+msgstr "Finalizado"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__date_start
+msgid "Start Date"
+msgstr "Fecha de Inicio"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__date_end
+msgid "End Date"
+msgstr "Fecha de Fin"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__date_next_invoice
+msgid "Next Invoice Date"
+msgstr "Próxima Fecha de Factura"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__pending_since
+msgid "Pending Since"
+msgstr "Pendiente Desde"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__pending_since
+msgid "Date when the subscription entered pending payment status"
+msgstr "Fecha en que la suscripción entró en estado de pago pendiente"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_count
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__invoice_count
+msgid "Invoices"
+msgstr "Facturas"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# subscription.subscriber fields
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__partner_id
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__portal_user_id
+msgid "Portal User"
+msgstr "Usuario Portal"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__portal_user_id
+msgid "Portal user linked to this subscriber"
+msgstr "Usuario del portal vinculado a este suscriptor"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__subscription_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__subscription_count
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__note
+msgid "Internal Notes"
+msgstr "Notas Internas"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# subscription.payment.wizard fields
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__subscription_id
+msgid "Subscription"
+msgstr "Suscripción"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__invoice_id
+msgid "Invoice to Pay"
+msgstr "Factura a Pagar"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__amount_residual
+msgid "Amount Due"
+msgstr "Importe Pendiente"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__invoice_date
+msgid "Invoice Date"
+msgstr "Fecha de Factura"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__invoice_date_due
+msgid "Due Date"
+msgstr "Fecha de Vencimiento"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__journal_id
+msgid "Payment Journal"
+msgstr "Diario de Pago"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__payment_date
+msgid "Payment Date"
+msgstr "Fecha de Pago"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# res.config.settings fields
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_grace_days
+msgid "Grace Period (Days)"
+msgstr "Período de Gracia (Días)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_grace_days
+msgid "Number of days after the due date before a subscription is paused."
+msgstr "Número de días después de la fecha de vencimiento antes de pausar la suscripción."
+
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_send_reminders
+msgid "Send Payment Reminders"
+msgstr "Enviar Recordatorios de Pago"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_send_reminders
+msgid "Enable automatic payment reminder emails before the due date."
+msgstr "Habilitar correos automáticos de recordatorio de pago antes del vencimiento."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_reminder_days
+msgid "Days Before Due"
+msgstr "Días Antes del Vencimiento"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_reminder_days
+msgid "Number of days before the due date to send a payment reminder email."
+msgstr "Número de días antes del vencimiento para enviar un correo de recordatorio de pago."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# account.move fields (inherited)
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_account_move__subscription_id
+msgid "Subscription"
+msgstr "Suscripción"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Views — form/tree/kanban labels and buttons
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_tree
+msgid "Subscription Plans"
+msgstr "Planes de Suscripción"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_form
+msgid "Subscription Plan"
+msgstr "Plan de Suscripción"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_form
+msgid "Billing"
+msgstr "Facturación"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_form
+msgid "Plan name..."
+msgstr "Nombre del plan..."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_form
+msgid "Plan description..."
+msgstr "Descripción del plan..."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Activate"
+msgstr "Activar"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Register Payment"
+msgstr "Registrar Pago"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Pay Now"
+msgstr "Pagar Ahora"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Pay Invoice"
+msgstr "Pagar Factura"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "View All Invoices"
+msgstr "Ver Todas las Facturas"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Select contact..."
+msgstr "Seleccionar contacto..."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Notes"
+msgstr "Notas"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Internal notes..."
+msgstr "Notas internas..."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Subscription"
+msgstr "Suscripción"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "View Invoices"
+msgstr "Ver Facturas"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Pause"
+msgstr "Pausar"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Finish"
+msgstr "Finalizar"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_tree
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Active"
+msgstr "Activo"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Pending Payment"
+msgstr "Pago Pendiente"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Paused"
+msgstr "Pausado"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Finished"
+msgstr "Finalizado"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Company"
+msgstr "Compañía"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_search
+msgid "Group By"
+msgstr "Agrupar Por"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_kanban
+msgid "subs"
+msgstr "susc"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_kanban
+msgid "invoices"
+msgstr "facturas"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_payment_wizard_view_form
+msgid "Register Subscription Payment"
+msgstr "Registrar Pago de Suscripción"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_payment_wizard_view_form
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_payment_wizard_view_form
+msgid "Payment"
+msgstr "Pago"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_payment_wizard_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Settings view labels
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Billing"
+msgstr "Facturación"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Grace Period (Days)"
+msgstr "Período de Gracia (Días)"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Days after the due date before a subscription is paused."
+msgstr "Días después del vencimiento antes de pausar la suscripción."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Penalty Amount"
+msgstr "Importe de Penalización"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Fixed amount invoiced as a penalty when a subscription is paused for non-payment."
+msgstr "Importe fijo facturado como penalización cuando una suscripción se pausa por falta de pago."
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Notifications"
+msgstr "Notificaciones"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Send Reminder (Days Before Due)"
+msgstr "Enviar Recordatorio (Días Antes del Vencimiento)"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Days before the due date to send a payment reminder email."
+msgstr "Días antes del vencimiento para enviar un correo de recordatorio de pago."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Actions
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.actions.act_window,name:odoo_subscription_manager.action_subscription_plan
+msgid "Subscription Plans"
+msgstr "Planes de Suscripción"
+
+#. module: odoo_subscription_manager
+#: model:ir.actions.act_window,name:odoo_subscription_manager.action_subscription_subscriber
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+#. module: odoo_subscription_manager
+#: model:ir.actions.act_window,name:odoo_subscription_manager.action_subscription_config_settings
+msgid "Settings"
+msgstr "Configuración"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Menus
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.ui.menu,name:odoo_subscription_manager.menu_subscription_root
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#. module: odoo_subscription_manager
+#: model:ir.ui.menu,name:odoo_subscription_manager.menu_subscription_subscribers
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+#. module: odoo_subscription_manager
+#: model:ir.ui.menu,name:odoo_subscription_manager.menu_subscription_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: odoo_subscription_manager
+#: model:ir.ui.menu,name:odoo_subscription_manager.menu_subscription_plans
+msgid "Plans"
+msgstr "Planes"
+
+#. module: odoo_subscription_manager
+#: model:ir.ui.menu,name:odoo_subscription_manager.menu_subscription_settings
+msgid "Settings"
+msgstr "Ajustes"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Help text (action)
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.actions.act_window,help:odoo_subscription_manager.action_subscription_subscriber
+msgid "Create your first subscriber"
+msgstr "Crea tu primer suscriptor"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.actions.act_window,help:odoo_subscription_manager.action_subscription_subscriber
+msgid "Manage recurring subscriptions, track payments, and send automated reminders."
+msgstr "Gestiona suscripciones recurrentes, realiza seguimiento de pagos y envía recordatorios automáticos."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Python code — translatable strings via _()
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
+#, python-format
+msgid "New"
+msgstr "Nuevo"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
+#, python-format
+msgid "Cannot delete subscription '%s'. Only draft or finished subscriptions can be deleted."
+msgstr "No se puede eliminar la suscripción '%s'. Solo se pueden eliminar suscripciones en borrador o finalizadas."
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
+#, python-format
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
+#, python-format
+msgid "Late Payment Penalty - %s"
+msgstr "Penalización por Pago Tardío - %s"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
+#, python-format
+msgid "Penalty invoice %s created for late payment."
+msgstr "Factura de penalización %s creada por pago tardío."
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscriber.py:0
+#, python-format
+msgid "New Subscriber"
+msgstr "Nuevo Suscriptor"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscriber.py:0
+#, python-format
+msgid "Register Payment"
+msgstr "Registrar Pago"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscriber.py:0
+#, python-format
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/wizard/subscription_payment_wizard.py:0
+#, python-format
+msgid "No invoice selected."
+msgstr "No se ha seleccionado ninguna factura."
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/wizard/subscription_payment_wizard.py:0
+#, python-format
+msgid "This invoice is already fully paid."
+msgstr "Esta factura ya está totalmente pagada."
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/wizard/subscription_payment_wizard.py:0
+#, python-format
+msgid "Payment Registered"
+msgstr "Pago Registrado"
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/wizard/subscription_payment_wizard.py:0
+#, python-format
+msgid "Payment of %s registered. Invoice sent by email."
+msgstr "Pago de %s registrado. Factura enviada por correo electrónico."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Mail templates
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:mail.template,name:odoo_subscription_manager.email_template_payment_reminder
+msgid "Subscription: Payment Reminder"
+msgstr "Suscripción: Recordatorio de Pago"
+
+#. module: odoo_subscription_manager
+#: model:mail.template,subject:odoo_subscription_manager.email_template_payment_reminder
+msgid "Payment Reminder - {{ object.plan_id.name }}"
+msgstr "Recordatorio de Pago - {{ object.plan_id.name }}"
+
+#. module: odoo_subscription_manager
+#: model:mail.template,name:odoo_subscription_manager.email_template_overdue_notification
+msgid "Subscription: Overdue Payment Notification"
+msgstr "Suscripción: Notificación de Pago Vencido"
+
+#. module: odoo_subscription_manager
+#: model:mail.template,subject:odoo_subscription_manager.email_template_overdue_notification
+msgid "Action Required: Overdue Payment - {{ object.plan_id.name }}"
+msgstr "Acción Requerida: Pago Vencido - {{ object.plan_id.name }}"
+
+#. module: odoo_subscription_manager
+#: model:mail.template,name:odoo_subscription_manager.email_template_payment_confirmation
+msgid "Subscription: Payment Confirmation"
+msgstr "Suscripción: Confirmación de Pago"
+
+#. module: odoo_subscription_manager
+#: model:mail.template,subject:odoo_subscription_manager.email_template_payment_confirmation
+msgid "Payment Confirmed - {{ object.name }}"
+msgstr "Pago Confirmado - {{ object.name }}"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Cron jobs
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.cron,name:odoo_subscription_manager.ir_cron_generate_invoices
+msgid "Subscriptions: Generate Invoices"
+msgstr "Suscripciones: Generar Facturas"
+
+#. module: odoo_subscription_manager
+#: model:ir.cron,name:odoo_subscription_manager.ir_cron_check_overdue
+msgid "Subscriptions: Check Overdue Invoices"
+msgstr "Suscripciones: Verificar Facturas Vencidas"
+
+#. module: odoo_subscription_manager
+#: model:ir.cron,name:odoo_subscription_manager.ir_cron_check_grace_period
+msgid "Subscriptions: Check Grace Period and Apply Penalties"
+msgstr "Suscripciones: Verificar Período de Gracia y Aplicar Penalizaciones"
+
+#. module: odoo_subscription_manager
+#: model:ir.cron,name:odoo_subscription_manager.ir_cron_send_payment_reminders
+msgid "Subscriptions: Send Payment Reminders"
+msgstr "Suscripciones: Enviar Recordatorios de Pago"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Security groups
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.module.category,name:odoo_subscription_manager.module_category_subscription
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#. module: odoo_subscription_manager
+#: model:res.groups,name:odoo_subscription_manager.group_subscription_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: odoo_subscription_manager
+#: model:res.groups,name:odoo_subscription_manager.group_subscription_manager
+msgid "Manager"
+msgstr "Gestor"

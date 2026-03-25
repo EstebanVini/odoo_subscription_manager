@@ -371,6 +371,7 @@
     <menuitem id="menu_subscription_root"
               name="Subscriptions"
               sequence="90"
+              web_icon="odoo_subscription_manager,static/description/menu_icon.png"
               groups="odoo_subscription_manager.group_subscription_user"/>
 
     <menuitem id="menu_subscription_subscribers"

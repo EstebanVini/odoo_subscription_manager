@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
                 <app string="Subscriptions" name="odoo_subscription_manager"
+                     logo="/odoo_subscription_manager/static/description/menu_icon.png"
                      groups="base.group_system">
                     <block title="Billing">
                         <setting string="Grace Period (Days)"
