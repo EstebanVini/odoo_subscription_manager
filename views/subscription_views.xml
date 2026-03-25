@@ -26,6 +26,7 @@
         <field name="arch" type="xml">
             <form string="Subscription Plan">
                 <sheet>
+                    <field name="active" invisible="1"/>
                     <widget name="web_ribbon" title="Archived" invisible="active"/>
                     <div class="oe_title">
                         <label for="name"/>
@@ -41,6 +42,9 @@
                         <group string="Product">
                             <field name="product_id"/>
                             <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Penalties">
+                            <field name="penalty_product_id"/>
                         </group>
                     </group>
                     <group string="Description">
@@ -92,25 +96,31 @@
                 <field name="invoice_count"/>
                 <field name="activity_ids"/>
                 <templates>
-                    <t t-name="card">
-                        <field name="name" class="fw-bold fs-5"/>
-                        <div class="text-muted">
-                            <i class="fa fa-user me-1"/>
-                            <field name="partner_id"/>
-                        </div>
-                        <div class="d-flex mt-2 gap-2">
-                            <span class="badge rounded-pill text-bg-light">
-                                <i class="fa fa-refresh me-1"/>
-                                <t t-esc="record.subscription_count.value"/> subs
-                            </span>
-                            <span class="badge rounded-pill text-bg-light">
-                                <i class="fa fa-file-text-o me-1"/>
-                                <t t-esc="record.invoice_count.value"/> invoices
-                            </span>
-                        </div>
-                        <div class="o_kanban_record_bottom mt-2">
-                            <div class="oe_kanban_bottom_left">
-                                <field name="activity_ids" widget="kanban_activity"/>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_title">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fa fa-user me-1"/>
+                                    <field name="partner_id"/>
+                                </div>
+                                <div class="d-flex mt-2 gap-2">
+                                    <span class="badge rounded-pill text-bg-light">
+                                        <i class="fa fa-refresh me-1"/>
+                                        <t t-esc="record.subscription_count.value"/> subs
+                                    </span>
+                                    <span class="badge rounded-pill text-bg-light">
+                                        <i class="fa fa-file-text-o me-1"/>
+                                        <t t-esc="record.invoice_count.value"/> invoices
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_bottom mt-2">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="activity_ids" widget="kanban_activity"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </t>
@@ -134,11 +144,7 @@
                 <field name="portal_user_id" optional="show"/>
                 <field name="subscription_count"/>
                 <field name="invoice_count"/>
-                <field name="state" widget="badge"
-                       decoration-success="state == 'active'"
-                       decoration-warning="state == 'pending_payment'"
-                       decoration-danger="state == 'paused'"
-                       decoration-secondary="state in ('draft', 'finished')"/>
+                <field name="state" widget="badge"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
             </tree>
         </field>
@@ -165,6 +171,8 @@
                            statusbar_visible="draft,active,pending_payment,paused,finished"/>
                 </header>
                 <sheet>
+                    <field name="active" invisible="1"/>
+                    <field name="invoice_count" invisible="1"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_payment_wizard"
                                 type="object"
@@ -202,7 +210,8 @@
 
                     <group>
                         <group string="Contact">
-                            <field name="portal_user_id"/>
+                            <field name="portal_user_id"
+                                   context="{'subscription_create_portal_user': True}"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                         <group string="Status">
@@ -225,11 +234,9 @@
                                     <field name="currency_id" column_invisible="1"/>
                                     <field name="date_start"/>
                                     <field name="date_next_invoice"/>
-                                    <field name="state" widget="badge"
-                                           decoration-success="state == 'active'"
-                                           decoration-warning="state == 'pending_payment'"
-                                           decoration-danger="state == 'paused'"
-                                           decoration-secondary="state in ('draft', 'finished')"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="invoice_count" column_invisible="1"/>
+                                    <field name="unpaid_invoice_count" column_invisible="1"/>
                                     <button name="action_activate"
                                             string="Activate"
                                             type="object"
@@ -245,6 +252,11 @@
                                             type="object"
                                             icon="fa-stop"
                                             invisible="state == 'finished'"/>
+                                    <button name="action_open_payment_wizard"
+                                            string="Pay Invoice"
+                                            type="object"
+                                            icon="fa-credit-card"
+                                            invisible="unpaid_invoice_count == 0"/>
                                     <button name="action_view_invoices"
                                             string="Invoices"
                                             type="object"
@@ -267,9 +279,17 @@
                                             <field name="pending_since" invisible="not pending_since"/>
                                         </group>
                                     </group>
+                                    <field name="invoice_count" invisible="1"/>
+                                    <field name="unpaid_invoice_count" invisible="1"/>
                                     <group string="Invoices" invisible="invoice_count == 0">
+                                        <button name="action_open_payment_wizard"
+                                                string="Pay Invoice"
+                                                type="object"
+                                                class="btn-primary"
+                                                icon="fa-credit-card"
+                                                invisible="unpaid_invoice_count == 0"/>
                                         <button name="action_view_invoices"
-                                                string="View Invoices"
+                                                string="View All Invoices"
                                                 type="object"
                                                 class="btn-link"
                                                 icon="fa-external-link"/>
@@ -332,58 +352,6 @@
             <p>
                 Manage recurring subscriptions, track payments, and send automated reminders.
             </p>
-        </field>
-    </record>
-
-    <!-- ══════════════════════════════════════════════════════════════════
-         CONFIG SETTINGS VIEW
-         ══════════════════════════════════════════════════════════════════ -->
-
-    <record id="res_config_settings_view_form_subscription" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.subscription</field>
-        <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-                <app data-string="Subscriptions"
-                     string="Subscriptions"
-                     data-key="odoo_subscription_manager"
-                     groups="base.group_system">
-                    <block title="Billing Rules">
-                        <setting string="Grace Period"
-                                 help="Number of days after the due date before a subscription is automatically paused.">
-                            <div class="content-group">
-                                <div class="row mt-2">
-                                    <label for="subscription_grace_days" class="col-lg-4"/>
-                                    <field name="subscription_grace_days" class="col-lg-2"/>
-                                    <span class="col-lg-6 text-muted">days</span>
-                                </div>
-                            </div>
-                        </setting>
-                        <setting string="Late Payment Penalty"
-                                 help="Fixed amount invoiced as penalty when a subscription is paused. Set to 0 to disable.">
-                            <div class="content-group">
-                                <div class="row mt-2">
-                                    <label for="subscription_penalty_amount" class="col-lg-4"/>
-                                    <field name="subscription_penalty_amount" class="col-lg-4"/>
-                                </div>
-                            </div>
-                        </setting>
-                    </block>
-                    <block title="Email Reminders">
-                        <setting string="Payment Reminder"
-                                 help="Number of days before the due date to send a payment reminder email.">
-                            <div class="content-group">
-                                <div class="row mt-2">
-                                    <label for="subscription_reminder_days" class="col-lg-4"/>
-                                    <field name="subscription_reminder_days" class="col-lg-2"/>
-                                    <span class="col-lg-6 text-muted">days before due date</span>
-                                </div>
-                            </div>
-                        </setting>
-                    </block>
-                </app>
-            </xpath>
         </field>
     </record>
 

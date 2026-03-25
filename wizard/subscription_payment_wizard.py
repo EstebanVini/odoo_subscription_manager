@@ -92,25 +92,21 @@ class SubscriptionPaymentWizard(models.TransientModel):
         if invoice.payment_state == 'paid':
             raise UserError(_('This invoice is already fully paid.'))
 
-        # Create and post payment
-        payment_vals = {
-            'payment_type': 'inbound',
-            'partner_type': 'customer',
-            'partner_id': invoice.partner_id.id,
-            'amount': invoice.amount_residual,
-            'date': self.payment_date,
+        # Delegate to Odoo's standard payment register wizard so that
+        # reconciliation and outstanding accounts are handled correctly
+        # regardless of the chart of accounts in use.
+        payment_register = self.env['account.payment.register'].with_context(
+            active_model='account.move',
+            active_ids=invoice.ids,
+        ).create({
+            'payment_date': self.payment_date,
             'journal_id': self.journal_id.id,
-            'ref': invoice.name,
-        }
-        payment = self.env['account.payment'].create(payment_vals)
-        payment.action_post()
+            'amount': invoice.amount_residual,
+        })
+        payment_register.action_create_payments()
 
-        # Reconcile payment with invoice
-        lines_to_reconcile = (payment.move_id.line_ids + invoice.line_ids).filtered(
-            lambda l: l.account_id.reconcile and not l.reconciled
-        )
-        if lines_to_reconcile:
-            lines_to_reconcile.reconcile()
+        # Refresh invoice state from DB before sending confirmation
+        invoice.invalidate_recordset(['payment_state'])
 
         # Send invoice confirmation by email
         self._send_payment_confirmation(invoice)

@@ -33,6 +33,7 @@
         # 3. Vistas y Wizards
         'wizard/subscription_payment_wizard_views.xml',
         'views/subscription_views.xml',
+        'views/res_config_settings_views.xml',
     ],
     'installable': True,
     'application': True,

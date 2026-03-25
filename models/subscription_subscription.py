@@ -92,6 +92,10 @@ class SubscriptionSubscription(models.Model):
         string='Invoices',
         compute='_compute_invoice_count',
     )
+    unpaid_invoice_count = fields.Integer(
+        string='Unpaid Invoices',
+        compute='_compute_unpaid_invoice_count',
+    )
 
     company_id = fields.Many2one(
         comodel_name='res.company',
@@ -108,6 +112,15 @@ class SubscriptionSubscription(models.Model):
     def _compute_invoice_count(self):
         for rec in self:
             rec.invoice_count = len(rec.invoice_ids)
+
+    def _compute_unpaid_invoice_count(self):
+        for rec in self:
+            rec.unpaid_invoice_count = self.env['account.move'].search_count([
+                ('subscription_id', '=', rec.id),
+                ('payment_state', 'in', ('not_paid', 'partial')),
+                ('state', '=', 'posted'),
+                ('move_type', '=', 'out_invoice'),
+            ])
 
     @api.onchange('plan_id')
     def _onchange_plan_id(self):
@@ -178,6 +191,30 @@ class SubscriptionSubscription(models.Model):
             'context': {'default_subscription_id': self.id},
         }
 
+    def action_open_payment_wizard(self):
+        """Open the payment wizard pre-loaded with this subscription and its oldest unpaid invoice."""
+        self.ensure_one()
+        oldest_unpaid = self.env['account.move'].search([
+            ('subscription_id', '=', self.id),
+            ('payment_state', 'in', ('not_paid', 'partial')),
+            ('state', '=', 'posted'),
+            ('move_type', '=', 'out_invoice'),
+        ], order='invoice_date asc', limit=1)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Register Payment'),
+            'res_model': 'subscription.payment.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_subscriber_id': self.subscriber_id.id,
+                'default_subscription_id': self.id,
+                'default_invoice_id': oldest_unpaid.id if oldest_unpaid else False,
+                'active_id': self.id,
+                'active_model': self._name,
+            },
+        }
+
     def _generate_invoice(self):
         """Create and post the invoice for the current billing period."""
         self.ensure_one()
@@ -217,10 +254,10 @@ class SubscriptionSubscription(models.Model):
         if delta_fn:
             self.date_next_invoice = self.date_next_invoice + delta_fn(interval)
 
-    def _create_penalty_invoice(self, penalty_amount):
-        """Create a penalty invoice for a paused subscription."""
+    def _create_penalty_invoice(self, penalty_product):
+        """Create a penalty invoice using the plan's penalty product."""
         self.ensure_one()
-        if not self.subscriber_id.partner_id or penalty_amount <= 0:
+        if not self.subscriber_id.partner_id or not penalty_product:
             return False
 
         invoice_vals = {
@@ -230,9 +267,10 @@ class SubscriptionSubscription(models.Model):
             'invoice_date_due': fields.Date.today(),
             'subscription_id': self.id,
             'invoice_line_ids': [(0, 0, {
-                'name': _('Late Payment Penalty - %s') % self.name,
+                'product_id': penalty_product.id,
+                'name': penalty_product.name,
                 'quantity': 1,
-                'price_unit': penalty_amount,
+                'price_unit': penalty_product.lst_price,
             })],
         }
         invoice = self.env['account.move'].create(invoice_vals)
@@ -304,9 +342,6 @@ class SubscriptionSubscription(models.Model):
         grace_days = int(
             self.env['ir.config_parameter'].sudo().get_param('subscription.grace_days', '5')
         )
-        penalty_amount = float(
-            self.env['ir.config_parameter'].sudo().get_param('subscription.penalty_amount', '0.0')
-        )
 
         pending_subs = self.search([
             ('state', '=', 'pending_payment'),
@@ -319,10 +354,11 @@ class SubscriptionSubscription(models.Model):
             if days_overdue >= grace_days:
                 sub.write({'state': 'paused'})
                 moved |= sub
-                if penalty_amount > 0:
+                penalty_product = sub.plan_id.penalty_product_id
+                if penalty_product:
                     try:
                         with self.env.cr.savepoint():
-                            sub._create_penalty_invoice(penalty_amount)
+                            sub._create_penalty_invoice(penalty_product)
                     except Exception:
                         _logger.exception("Error creating penalty invoice for subscription %s.", sub.name)
 
@@ -333,6 +369,13 @@ class SubscriptionSubscription(models.Model):
     @api.model
     def _cron_send_payment_reminders(self):
         """Send payment reminder emails X days before the next invoice date."""
+        send_reminders = self.env['ir.config_parameter'].sudo().get_param(
+            'subscription.send_reminders', 'True'
+        )
+        if send_reminders.lower() in ('false', '0', ''):
+            _logger.info("Cron reminders: disabled by configuration, skipping.")
+            return
+
         _logger.info("Cron: sending payment reminders.")
         today = fields.Date.today()
         reminder_days = int(

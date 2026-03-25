@@ -40,6 +40,12 @@ class SubscriptionPlan(models.Model):
         default=lambda self: self.env.company.currency_id,
         required=True,
     )
+    penalty_product_id = fields.Many2one(
+        comodel_name='product.product',
+        string='Penalty Product',
+        domain="[('type', 'in', ['service', 'consu'])]",
+        help='Product added as a line on the penalty invoice when this subscription is paused for non-payment. Leave empty to disable penalties for this plan.',
+    )
     description = fields.Text(string='Description')
     active = fields.Boolean(default=True)
     company_id = fields.Many2one(

@@ -81,6 +81,18 @@ class SubscriptionSubscriber(models.Model):
         for rec in self:
             rec.name = rec.partner_id.name if rec.partner_id else _('New Subscriber')
 
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        """Auto-fill portal_user_id if the partner already has a portal user."""
+        if self.partner_id and not self.portal_user_id:
+            existing = self.env['res.users'].search([
+                ('partner_id', '=', self.partner_id.id),
+                ('share', '=', True),
+                ('active', '=', True),
+            ], limit=1)
+            if existing:
+                self.portal_user_id = existing
+
     @api.depends('subscription_ids')
     def _compute_subscription_count(self):
         for rec in self:
@@ -153,8 +165,42 @@ class SubscriptionSubscriber(models.Model):
             'context': {'default_subscriber_id': self.id},
         }
 
+    def _ensure_portal_user(self):
+        """Create a portal user for this subscriber's partner if none exists."""
+        self.ensure_one()
+        if self.portal_user_id:
+            return
+        if not self.partner_id.email:
+            _logger.warning(
+                "Subscriber %s has no email on partner — skipping portal user creation.",
+                self.name,
+            )
+            return
+
+        # Reuse existing portal user for this partner if any
+        existing = self.env['res.users'].search([
+            ('partner_id', '=', self.partner_id.id),
+            ('share', '=', True),
+            ('active', '=', True),
+        ], limit=1)
+        if existing:
+            self.portal_user_id = existing
+            return
+
+        portal_group = self.env.ref('base.group_portal')
+        user = self.env['res.users'].with_context(no_reset_password=True).sudo().create({
+            'name': self.partner_id.name,
+            'login': self.partner_id.email,
+            'email': self.partner_id.email,
+            'partner_id': self.partner_id.id,
+            'groups_id': [(6, 0, [portal_group.id])],
+        })
+        self.portal_user_id = user
+        _logger.info("Created portal user %s for subscriber %s.", user.login, self.name)
+
     def action_activate(self):
         for rec in self:
+            rec._ensure_portal_user()
             rec.subscription_ids.filtered(
                 lambda s: s.state == 'draft'
             ).action_activate()

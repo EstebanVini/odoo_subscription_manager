@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.form.subscription</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
+                <app string="Subscriptions" name="odoo_subscription_manager"
+                     groups="base.group_system">
+                    <block title="Billing">
+                        <setting string="Grace Period (Days)"
+                                 help="Days after the due date before a subscription is paused.">
+                            <field name="subscription_grace_days"/>
+                        </setting>
+                    </block>
+                    <block title="Notifications">
+                        <setting string="Send Payment Reminders"
+                                 help="Enable automatic payment reminder emails before the due date.">
+                            <field name="subscription_send_reminders"/>
+                        </setting>
+                        <setting string="Days Before Due"
+                                 help="Days before the due date to send a payment reminder email."
+                                 invisible="not subscription_send_reminders">
+                            <field name="subscription_reminder_days"
+                                   invisible="not subscription_send_reminders"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
