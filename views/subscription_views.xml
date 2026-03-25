@@ -223,18 +223,18 @@
                         <page string="Subscriptions" name="subscriptions">
                             <field name="subscription_ids"
                                    readonly="state == 'finished'">
-                                <tree editable="bottom"
-                                      decoration-success="state == 'active'"
-                                      decoration-warning="state == 'pending_payment'"
-                                      decoration-danger="state == 'paused'"
-                                      decoration-muted="state in ('draft', 'finished')">
+                                <tree editable="bottom">
                                     <field name="name" readonly="1"/>
                                     <field name="plan_id"/>
                                     <field name="price"/>
                                     <field name="currency_id" column_invisible="1"/>
                                     <field name="date_start"/>
                                     <field name="date_next_invoice"/>
-                                    <field name="state" widget="badge"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'active'"
+                                           decoration-danger="state == 'pending_payment'"
+                                           decoration-warning="state == 'paused'"
+                                           decoration-muted="state in ('draft', 'finished')"/>
                                     <field name="invoice_count" column_invisible="1"/>
                                     <field name="unpaid_invoice_count" column_invisible="1"/>
                                     <button name="action_activate"
