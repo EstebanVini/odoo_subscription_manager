@@ -26,19 +26,32 @@ class SubscriptionSubscriber(models.Model):
         store=True,
         index='trigram',
     )
-    partner_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Contact',
-        required=True,
-        tracking=True,
-        index=True,
-    )
     portal_user_id = fields.Many2one(
         comodel_name='res.users',
         string='Portal User',
         domain="[('share', '=', True)]",
+        required=True,
         tracking=True,
+        index=True,
         help='Portal user linked to this subscriber',
+    )
+    partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Contact',
+        compute='_compute_partner_id',
+        store=True,
+        tracking=True,
+        index=True,
+    )
+    phone = fields.Char(
+        string='Teléfono',
+        related='partner_id.phone',
+        readonly=False,
+    )
+    email = fields.Char(
+        string='Correo electrónico',
+        related='partner_id.email',
+        readonly=False,
     )
     state = fields.Selection(
         selection=[
@@ -76,22 +89,16 @@ class SubscriptionSubscriber(models.Model):
     )
     note = fields.Text(string='Internal Notes')
 
+    @api.depends('portal_user_id')
+    def _compute_partner_id(self):
+        """Derive partner_id from the portal user's associated partner."""
+        for rec in self:
+            rec.partner_id = rec.portal_user_id.partner_id if rec.portal_user_id else False
+
     @api.depends('partner_id', 'partner_id.name')
     def _compute_name(self):
         for rec in self:
             rec.name = rec.partner_id.name if rec.partner_id else _('New Subscriber')
-
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-        """Auto-fill portal_user_id if the partner already has a portal user."""
-        if self.partner_id and not self.portal_user_id:
-            existing = self.env['res.users'].search([
-                ('partner_id', '=', self.partner_id.id),
-                ('share', '=', True),
-                ('active', '=', True),
-            ], limit=1)
-            if existing:
-                self.portal_user_id = existing
 
     @api.depends('subscription_ids')
     def _compute_subscription_count(self):

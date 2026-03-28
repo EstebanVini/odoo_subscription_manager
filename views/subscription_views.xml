@@ -90,6 +90,7 @@
                     class="o_kanban_small_column">
                 <field name="id"/>
                 <field name="name"/>
+                <field name="portal_user_id"/>
                 <field name="partner_id"/>
                 <field name="state"/>
                 <field name="subscription_count"/>
@@ -100,10 +101,10 @@
                         <div class="oe_kanban_card oe_kanban_global_click">
                             <div class="oe_kanban_content">
                                 <div class="o_kanban_record_title">
-                                    <strong><field name="name"/></strong>
+                                    <strong><field name="portal_user_id"/></strong>
                                 </div>
                                 <div class="text-muted">
-                                    <i class="fa fa-user me-1"/>
+                                    <i class="fa fa-address-card me-1" title="Contact"/>
                                     <field name="partner_id"/>
                                 </div>
                                 <div class="d-flex mt-2 gap-2">
@@ -140,8 +141,8 @@
                   decoration-danger="state == 'paused'"
                   decoration-muted="state in ('draft', 'finished')">
                 <field name="name"/>
-                <field name="partner_id"/>
-                <field name="portal_user_id" optional="show"/>
+                <field name="portal_user_id"/>
+                <field name="partner_id" optional="show"/>
                 <field name="subscription_count"/>
                 <field name="invoice_count"/>
                 <field name="state" widget="badge"/>
@@ -200,18 +201,20 @@
                     <widget name="web_ribbon" title="Archived" invisible="active"/>
 
                     <div class="oe_title">
-                        <label for="partner_id"/>
+                        <label for="portal_user_id"/>
                         <h1>
-                            <field name="partner_id"
-                                   placeholder="Select contact..."
-                                   readonly="state not in ('draft',)"/>
+                            <field name="portal_user_id"
+                                   placeholder="Seleccionar o crear usuario portal..."
+                                   readonly="state not in ('draft',)"
+                                   context="{'subscription_create_portal_user': True}"/>
                         </h1>
                     </div>
 
                     <group>
                         <group string="Contact">
-                            <field name="portal_user_id"
-                                   context="{'subscription_create_portal_user': True}"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="email" widget="email"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                         <group string="Status">
@@ -313,8 +316,9 @@
         <field name="model">subscription.subscriber</field>
         <field name="arch" type="xml">
             <search string="Subscribers">
-                <field name="name"/>
+                <field name="portal_user_id"/>
                 <field name="partner_id"/>
+                <field name="name"/>
                 <separator/>
                 <filter name="filter_draft" string="Draft"
                         domain="[('state', '=', 'draft')]"/>
@@ -344,7 +348,7 @@
         <field name="name">Subscribers</field>
         <field name="res_model">subscription.subscriber</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first subscriber

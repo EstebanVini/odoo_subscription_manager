@@ -38,5 +38,5 @@
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
-    'icon': '/odoo_subscription_manager/static/description/icon.png'
+    'icon': '/odoo_subscription_manager/static/description/menu_icon.png'
 }
