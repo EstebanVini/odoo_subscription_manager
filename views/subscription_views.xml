@@ -215,6 +215,7 @@
                             <field name="partner_id" readonly="1"/>
                             <field name="phone" widget="phone"/>
                             <field name="email" widget="email"/>
+                            <field name="date_of_birth" widget="date"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                         <group string="Status">
@@ -299,6 +300,10 @@
                                     </group>
                                 </form>
                             </field>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids" widget="subscriber_document"
+                                   string="Documents"/>
                         </page>
                         <page string="Notes" name="notes">
                             <field name="note" placeholder="Internal notes..."/>

@@ -1,6 +1,6 @@
 import logging
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _ #type: ignore
 
 _logger = logging.getLogger(__name__)
 
@@ -52,6 +52,17 @@ class SubscriptionSubscriber(models.Model):
         string='Correo electrónico',
         related='partner_id.email',
         readonly=False,
+    )
+    date_of_birth = fields.Date(
+        string='Date of Birth',
+        tracking=True,
+    )
+    document_ids = fields.Many2many(
+        comodel_name='ir.attachment',
+        relation='subscription_subscriber_attachment_rel',
+        column1='subscriber_id',
+        column2='attachment_id',
+        string='Documents',
     )
     state = fields.Selection(
         selection=[

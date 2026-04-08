@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Main container: list of attachments + upload button -->
+    <t t-name="odoo_subscription_manager.SubscriberDocumentField" owl="1">
+        <div t-attf-class="oe_fileupload o_subscriber_documents {{props.className or ''}}"
+             aria-atomic="true">
+            <!-- Document list -->
+            <div class="o_attachments_list">
+                <t t-if="files.length === 0 and props.readonly">
+                    <p class="text-muted fst-italic ms-1">Sin documentos adjuntos.</p>
+                </t>
+                <t t-foreach="files" t-as="file" t-key="file.id">
+                    <t t-call="odoo_subscription_manager.SubscriberDocumentField.attachment_row"/>
+                </t>
+            </div>
+            <!-- Upload button -->
+            <div t-if="!props.readonly and (!props.numberOfFiles or files.length &lt; props.numberOfFiles)"
+                 class="mt-2">
+                <FileInput
+                    acceptedFileExtensions="props.acceptedFileExtensions"
+                    multiUpload="true"
+                    onUpload.bind="onFileUploaded"
+                    resModel="props.record.resModel"
+                    resId="props.record.resId or 0"
+                >
+                    <button class="btn btn-secondary btn-sm o_attach">
+                        <span class="fa fa-paperclip me-1" aria-label="Adjuntar"/>
+                        Agregar documento
+                    </button>
+                </FileInput>
+            </div>
+        </div>
+    </t>
+
+    <!-- Single attachment row -->
+    <t t-name="odoo_subscription_manager.SubscriberDocumentField.attachment_row" owl="1">
+        <t t-set="editable" t-value="!props.readonly"/>
+        <t t-set="ext"      t-value="getExtension(file)"/>
+        <t t-set="url"      t-value="getUrl(file.id)"/>
+
+        <div class="o_subscriber_doc_row d-flex align-items-center gap-2 py-2 border-bottom">
+
+            <!-- File type icon (Odoo resolves the icon from data-mimetype via CSS) -->
+            <a t-att-href="url" target="_blank" class="flex-shrink-0 text-decoration-none"
+               t-att-title="'Vista previa: ' + file.name">
+                <span class="o_image o_hover"
+                      t-att-data-mimetype="file.mimetype"
+                      t-att-data-ext="ext"
+                      role="img"
+                      style="width:38px;height:38px;display:inline-block;"/>
+            </a>
+
+            <!-- Full filename (clickable → preview) -->
+            <a t-att-href="url" target="_blank"
+               class="flex-grow-1 text-decoration-none text-reset o_subscriber_doc_name"
+               t-att-title="file.name">
+                <t t-esc="file.name"/>
+            </a>
+
+            <!-- Extension badge -->
+            <span class="badge text-bg-secondary text-uppercase"
+                  style="font-size:0.7rem; flex-shrink:0;">
+                <t t-esc="ext"/>
+            </span>
+
+            <!-- Delete button (edit mode only) -->
+            <button t-if="editable"
+                    class="btn btn-sm btn-outline-danger flex-shrink-0"
+                    t-on-click.stop="() => this.onFileRemove(file.id)"
+                    title="Eliminar documento">
+                <span class="fa fa-trash" aria-label="Eliminar"/>
+            </button>
+        </div>
+    </t>
+
+</templates>

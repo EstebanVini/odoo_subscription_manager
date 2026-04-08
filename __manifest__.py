@@ -35,6 +35,13 @@
         'views/subscription_views.xml',
         'views/res_config_settings_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'odoo_subscription_manager/static/src/xml/subscriber_document_field.xml',
+            'odoo_subscription_manager/static/src/js/subscriber_document_field.js',
+            'odoo_subscription_manager/static/src/css/subscriber_documents.css',
+        ],
+    },
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

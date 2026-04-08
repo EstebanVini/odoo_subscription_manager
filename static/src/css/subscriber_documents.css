@@ -1,0 +1,36 @@
+/* =========================================================
+   Subscriber Document Field — list layout & full-name display
+   ========================================================= */
+
+/* Each document row: full width, flex horizontal */
+.o_subscriber_documents .o_subscriber_doc_row {
+    min-height: 52px;
+}
+
+/* Filename: wrap on word boundaries so very long names stay readable */
+.o_subscriber_documents .o_subscriber_doc_name {
+    word-break: break-word;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+/* Ensure the file-type icon (Odoo's .o_image) stays its fixed size */
+.o_subscriber_documents .o_image {
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-block !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Light hover effect on rows */
+.o_subscriber_documents .o_subscriber_doc_row:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+}
+
+/* Empty-state text */
+.o_subscriber_documents .o_attachments_list:empty ~ p {
+    display: block;
+}
