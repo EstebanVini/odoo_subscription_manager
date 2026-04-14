@@ -14,6 +14,7 @@
                 <field name="recurring_interval"/>
                 <field name="recurring_rule_type"/>
                 <field name="price"/>
+                <field name="monthly_classes_limit" string="Classes/Month"/>
                 <field name="currency_id" groups="base.group_multi_currency"/>
                 <field name="product_id" optional="hide"/>
             </tree>
@@ -38,6 +39,7 @@
                             <field name="recurring_rule_type"/>
                             <field name="price"/>
                             <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="monthly_classes_limit"/>
                         </group>
                         <group string="Product">
                             <field name="product_id"/>
@@ -231,6 +233,8 @@
                                     <field name="name" readonly="1"/>
                                     <field name="plan_id"/>
                                     <field name="price"/>
+                                    <field name="discount" string="Discount (%)"/>
+                                    <field name="price_after_discount" string="Final Price" readonly="1"/>
                                     <field name="currency_id" column_invisible="1"/>
                                     <field name="date_start"/>
                                     <field name="date_next_invoice"/>
@@ -273,6 +277,8 @@
                                             <field name="name" readonly="1"/>
                                             <field name="plan_id"/>
                                             <field name="price"/>
+                                            <field name="discount" string="Discount (%)"/>
+                                            <field name="price_after_discount" string="Final Price" readonly="1"/>
                                             <field name="currency_id" invisible="1"/>
                                         </group>
                                         <group>

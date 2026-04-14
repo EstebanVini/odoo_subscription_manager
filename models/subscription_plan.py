@@ -46,6 +46,11 @@ class SubscriptionPlan(models.Model):
         domain="[('type', 'in', ['service', 'consu'])]",
         help='Product added as a line on the penalty invoice when this subscription is paused for non-payment. Leave empty to disable penalties for this plan.',
     )
+    monthly_classes_limit = fields.Integer(
+        string='Monthly Classes Limit',
+        default=0,
+        help='Maximum number of classes allowed per month for this plan. Use 0 for unlimited.',
+    )
     description = fields.Text(string='Description')
     active = fields.Boolean(default=True)
     company_id = fields.Many2one(

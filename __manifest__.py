@@ -1,6 +1,6 @@
 {
     'name': 'Gestión de Suscripciones',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.2.0',
     'category': 'Sales/Subscriptions',
     'summary': 'Manejo de suscripciones recurrentes, facturación y pagos desde Kanban',
     'description': """

@@ -2,7 +2,7 @@ import logging
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -76,6 +76,19 @@ class SubscriptionSubscription(models.Model):
         currency_field='currency_id',
         tracking=True,
     )
+    discount = fields.Float(
+        string='Discount (%)',
+        digits=(5, 2),
+        default=0.0,
+        tracking=True,
+        help='Discount percentage applied to the invoice line for this subscription (0-100).',
+    )
+    price_after_discount = fields.Monetary(
+        string='Price after Discount',
+        compute='_compute_price_after_discount',
+        currency_field='currency_id',
+        store=False,
+    )
     currency_id = fields.Many2one(
         comodel_name='res.currency',
         related='plan_id.currency_id',
@@ -121,6 +134,17 @@ class SubscriptionSubscription(models.Model):
                 ('state', '=', 'posted'),
                 ('move_type', '=', 'out_invoice'),
             ])
+
+    @api.depends('price', 'discount')
+    def _compute_price_after_discount(self):
+        for rec in self:
+            rec.price_after_discount = rec.price * (1 - rec.discount / 100.0)
+
+    @api.constrains('discount')
+    def _check_discount(self):
+        for rec in self:
+            if not (0.0 <= rec.discount <= 100.0):
+                raise ValidationError(_('Discount must be between 0% and 100%.'))
 
     @api.onchange('plan_id')
     def _onchange_plan_id(self):
@@ -235,6 +259,7 @@ class SubscriptionSubscription(models.Model):
                 'name': self.plan_id.name,
                 'quantity': 1,
                 'price_unit': self.price,
+                'discount': self.discount,
             })],
         }
         invoice = self.env['account.move'].create(invoice_vals)
