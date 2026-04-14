@@ -119,6 +119,16 @@ msgstr "Penalizaciones"
 msgid "Description"
 msgstr "Descripción"
 
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__monthly_classes_limit
+msgid "Monthly Classes Limit"
+msgstr "Límite de Clases Mensuales"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_plan__monthly_classes_limit
+msgid "Maximum number of classes allowed per month for this plan. Use 0 for unlimited."
+msgstr "Número máximo de clases permitidas al mes para este plan. Use 0 para ilimitado."
+
 # ──────────────────────────────────────────────────────────────────────────────
 # subscription.subscription fields
 # ──────────────────────────────────────────────────────────────────────────────
@@ -198,6 +208,21 @@ msgstr "Pendiente Desde"
 #: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__pending_since
 msgid "Date when the subscription entered pending payment status"
 msgstr "Fecha en que la suscripción entró en estado de pago pendiente"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__discount
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__discount
+msgid "Discount percentage applied to the invoice line for this subscription (0-100)."
+msgstr "Porcentaje de descuento aplicado a la línea de factura para esta suscripción (0-100)."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__price_after_discount
+msgid "Price after Discount"
+msgstr "Precio con Descuento"
 
 #. module: odoo_subscription_manager
 #: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_ids
@@ -484,6 +509,21 @@ msgid "invoices"
 msgstr "facturas"
 
 #. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_plan_view_tree
+msgid "Classes/Month"
+msgstr "Clases/Mes"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Final Price"
+msgstr "Precio Final"
+
+#. module: odoo_subscription_manager
 #: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_payment_wizard_view_form
 msgid "Register Subscription Payment"
 msgstr "Registrar Pago de Suscripción"
@@ -684,6 +724,12 @@ msgstr "Pago Registrado"
 #, python-format
 msgid "Payment of %s registered. Invoice sent by email."
 msgstr "Pago de %s registrado. Factura enviada por correo electrónico."
+
+#. module: odoo_subscription_manager
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
+#, python-format
+msgid "Discount must be between 0% and 100%."
+msgstr "El descuento debe estar entre 0% y 100%."
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Mail templates

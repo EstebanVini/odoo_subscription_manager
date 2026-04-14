@@ -230,15 +230,15 @@
                             <field name="subscription_ids"
                                    readonly="state == 'finished'">
                                 <tree editable="bottom">
-                                    <field name="name" readonly="1"/>
-                                    <field name="plan_id"/>
-                                    <field name="price"/>
-                                    <field name="discount" string="Discount (%)"/>
-                                    <field name="price_after_discount" string="Final Price" readonly="1"/>
+                                    <field name="name" readonly="1" width="100px"/>
+                                    <field name="plan_id" width="160px"/>
+                                    <field name="price" string="Precio" width="80px"/>
+                                    <field name="discount" string="Descuento (%)" width="100px"/>
+                                    <field name="price_after_discount" string="Precio Final" readonly="1" width="90px"/>
                                     <field name="currency_id" column_invisible="1"/>
-                                    <field name="date_start"/>
-                                    <field name="date_next_invoice"/>
-                                    <field name="state" widget="badge"
+                                    <field name="date_start" width="90px"/>
+                                    <field name="date_next_invoice" width="120px"/>
+                                    <field name="state" widget="badge" width="110px"
                                            decoration-success="state == 'active'"
                                            decoration-danger="state == 'pending_payment'"
                                            decoration-warning="state == 'paused'"
