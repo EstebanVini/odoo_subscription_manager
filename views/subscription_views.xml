@@ -14,7 +14,9 @@
                 <field name="recurring_interval"/>
                 <field name="recurring_rule_type"/>
                 <field name="price"/>
-                <field name="monthly_classes_limit" string="Classes/Month"/>
+                <field name="unlimited_classes" string="Unlimited"/>
+                <field name="monthly_classes_limit" string="Classes/Month"
+                       optional="show"/>
                 <field name="currency_id" groups="base.group_multi_currency"/>
                 <field name="product_id" optional="hide"/>
             </tree>
@@ -39,7 +41,8 @@
                             <field name="recurring_rule_type"/>
                             <field name="price"/>
                             <field name="currency_id" groups="base.group_multi_currency"/>
-                            <field name="monthly_classes_limit"/>
+                            <field name="unlimited_classes"/>
+                            <field name="monthly_classes_limit" invisible="unlimited_classes"/>
                         </group>
                         <group string="Product">
                             <field name="product_id"/>
@@ -147,6 +150,7 @@
                 <field name="partner_id" optional="show"/>
                 <field name="subscription_count"/>
                 <field name="invoice_count"/>
+                <field name="remaining_monthly_classes" string="Sesiones restantes" optional="show"/>
                 <field name="state" widget="badge"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
             </tree>
@@ -222,6 +226,8 @@
                         </group>
                         <group string="Status">
                             <field name="state" readonly="1"/>
+                            <field name="remaining_monthly_classes" readonly="1"
+                                   help="Sesiones disponibles este mes según el plan activo. -1 = sin límite."/>
                         </group>
                     </group>
 

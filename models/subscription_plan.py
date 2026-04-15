@@ -46,10 +46,15 @@ class SubscriptionPlan(models.Model):
         domain="[('type', 'in', ['service', 'consu'])]",
         help='Product added as a line on the penalty invoice when this subscription is paused for non-payment. Leave empty to disable penalties for this plan.',
     )
+    unlimited_classes = fields.Boolean(
+        string='Unlimited Classes',
+        default=False,
+        help='When enabled, subscribers on this plan have no monthly class limit.',
+    )
     monthly_classes_limit = fields.Integer(
         string='Monthly Classes Limit',
         default=0,
-        help='Maximum number of classes allowed per month for this plan. Use 0 for unlimited.',
+        help='Maximum number of classes allowed per month for this plan.',
     )
     description = fields.Text(string='Description')
     active = fields.Boolean(default=True)

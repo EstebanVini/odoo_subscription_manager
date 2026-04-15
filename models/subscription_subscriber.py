@@ -98,6 +98,11 @@ class SubscriptionSubscriber(models.Model):
         required=True,
         index=True,
     )
+    remaining_monthly_classes = fields.Integer(
+        string='Remaining Classes This Month',
+        default=-1,
+        help='Number of classes the subscriber can still attend this month. -1 means unlimited.',
+    )
     note = fields.Text(string='Internal Notes')
 
     @api.depends('portal_user_id')
