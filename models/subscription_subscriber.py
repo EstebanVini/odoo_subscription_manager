@@ -105,6 +105,37 @@ class SubscriptionSubscriber(models.Model):
     )
     note = fields.Text(string='Internal Notes')
 
+    def _get_total_monthly_limit(self):
+        """Return the combined monthly class limit across all active subscriptions.
+
+        Business rules applied across ALL active subscriptions:
+        - No active subscriptions → ``None`` (no cap applies).
+        - Any active subscription with ``unlimited_classes = True`` → ``None``
+          (unrestricted access; limited subscriptions are ignored).
+        - Otherwise → **sum** of ``monthly_classes_limit`` for every active
+          subscription whose plan defines a positive limit (> 0).
+        - Sum equals 0 (all active plans have ``monthly_classes_limit <= 0``) →
+          ``None`` (no meaningful cap defined).
+
+        :returns: ``int`` with the total limit, or ``None`` for unlimited/undefined.
+        """
+        self.ensure_one()
+        active_subs = self.subscription_ids.filtered(lambda s: s.state == 'active')
+
+        if not active_subs:
+            return None
+
+        # Any unlimited subscription grants unrestricted access to all classes
+        if any(sub.plan_id.unlimited_classes for sub in active_subs if sub.plan_id):
+            return None
+
+        total = sum(
+            sub.plan_id.monthly_classes_limit
+            for sub in active_subs
+            if sub.plan_id and sub.plan_id.monthly_classes_limit > 0
+        )
+        return total if total > 0 else None
+
     @api.depends('portal_user_id')
     def _compute_partner_id(self):
         """Derive partner_id from the portal user's associated partner."""
