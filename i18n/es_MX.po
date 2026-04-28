@@ -807,3 +807,535 @@ msgstr "Usuario"
 #: model:res.groups,name:odoo_subscription_manager.group_subscription_manager
 msgid "Manager"
 msgstr "Gestor"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Campos del módulo no traducidos previamente
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__date_of_birth
+msgid "Date of Birth"
+msgstr "Fecha de Nacimiento"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__remaining_monthly_classes
+msgid "Remaining Classes This Month"
+msgstr "Clases Restantes Este Mes"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__remaining_monthly_classes
+msgid "Number of classes the subscriber can still attend this month. -1 means unlimited."
+msgstr "Número de clases a las que el suscriptor aún puede asistir este mes. -1 significa ilimitado."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__document_ids
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__unlimited_classes
+msgid "Unlimited Classes"
+msgstr "Clases Ilimitadas"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_plan__unlimited_classes
+msgid "When enabled, subscribers on this plan have no monthly class limit."
+msgstr "Cuando está activado, los suscriptores de este plan no tienen límite mensual de clases."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_plan__monthly_classes_limit
+msgid "Maximum number of classes allowed per month for this plan."
+msgstr "Número máximo de clases permitidas por mes para este plan."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__unpaid_invoice_count
+msgid "Unpaid Invoices"
+msgstr "Facturas Sin Pagar"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Términos arch_db faltantes
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+msgid "<span class=\"o_stat_text\">Pay Now</span>"
+msgstr "<span class=\"o_stat_text\">Pagar Ahora</span>"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Nombres de modelos
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de Configuración"
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_account_move
+msgid "Journal Entry"
+msgstr "Apunte Contable"
+
+#. module: odoo_subscription_manager
+#: model:ir.model,name:odoo_subscription_manager.model_res_users
+msgid "User"
+msgstr "Usuario"
+
+#. module: odoo_subscription_manager
+#: model:ir.module.category,description:odoo_subscription_manager.module_category_subscription
+msgid "Manage recurring subscriptions and billing."
+msgstr "Gestión de suscripciones recurrentes y facturación."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Campos heredados de mail.thread y mail.activity.mixin
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_needaction
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_exception_decoration
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de Excepción de Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__activity_exception_decoration
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción en el registro."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_state
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_state
+msgid "Activity State"
+msgstr "Estado de Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__activity_state
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencido: La fecha límite ya pasó\n"
+"Hoy: La fecha de actividad es hoy\n"
+"Planificado: Actividades futuras."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_type_icon
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de Tipo de Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__activity_type_icon
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font Awesome, p. ej. fa-tasks"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_attachment_count
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de Adjuntos"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__create_uid
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__create_uid
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__create_uid
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__create_date
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__create_date
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__create_date
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__currency_id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__currency_id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__display_name
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__display_name
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__display_name
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__display_name
+msgid "Display Name"
+msgstr "Nombre Visible"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_follower_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_partner_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__has_message
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__has_message
+msgid "Has Message"
+msgstr "Tiene Mensaje"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__id
+msgid "ID"
+msgstr "ID"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_exception_icon
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__activity_exception_icon
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad con excepción."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__message_needaction
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay mensajes nuevos que requieren su atención."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__message_has_error
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__message_has_sms_error
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__message_has_error
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de envío."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_is_follower
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_is_follower
+msgid "Is Follower"
+msgstr "Es Seguidor"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__write_uid
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__write_uid
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__write_uid
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_payment_wizard__write_date
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_plan__write_date
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__write_date
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_has_error
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Entrega de Mensaje"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__my_activity_date_deadline
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha Límite de Mi Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_date_deadline
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha Límite de Próxima Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_summary
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de Próxima Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_type_id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de Próxima Actividad"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_needaction_counter
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de Acciones"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_has_error_counter
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de Errores"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__message_needaction_counter
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__message_has_error_counter
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__activity_user_id
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario Responsable"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__message_has_sms_error
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de Entrega de SMS"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__website_message_ids
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del Sitio Web"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscriber__website_message_ids
+#: model:ir.model.fields,help:odoo_subscription_manager.field_subscription_subscription__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Cuerpos HTML de plantillas de correo electrónico
+# ──────────────────────────────────────────────────────────────────────────────
+
+#. module: odoo_subscription_manager
+#: model:mail.template,body_html:odoo_subscription_manager.email_template_payment_reminder
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-family: Arial, sans-serif;\">\n"
+"    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>\n"
+"    <p>\n"
+"        This is a friendly reminder that your upcoming payment for\n"
+"        <strong>{{ object.plan_id.name }}</strong> is due on\n"
+"        <strong>{{ object.date_next_invoice }}</strong>.\n"
+"    </p>\n"
+"    <table style=\"border-collapse: collapse; width: 100%; margin: 16px 0;\">\n"
+"        <tr style=\"background-color: #f5f5f5;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Subscription</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Plan</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.plan_id.name }}</td>\n"
+"        </tr>\n"
+"        <tr style=\"background-color: #f5f5f5;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Amount</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.price }} {{ object.currency_id.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Due Date</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.date_next_invoice }}</td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p>Please ensure your payment is made on time to avoid service interruption.</p>\n"
+"    <p>Thank you for your continued support.</p>\n"
+"    <br/>\n"
+"    <p>Best regards,<br/><strong>{{ object.company_id.name }}</strong></p>\n"
+"</div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0; padding: 0; font-family: Arial, sans-serif;\">\n"
+"    <p>Estimado/a {{ object.subscriber_id.partner_id.name }},</p>\n"
+"    <p>\n"
+"        Le recordamos que su próximo pago del plan\n"
+"        <strong>{{ object.plan_id.name }}</strong> vence el\n"
+"        <strong>{{ object.date_next_invoice }}</strong>.\n"
+"    </p>\n"
+"    <table style=\"border-collapse: collapse; width: 100%; margin: 16px 0;\">\n"
+"        <tr style=\"background-color: #f5f5f5;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Suscripción</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Plan</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.plan_id.name }}</td>\n"
+"        </tr>\n"
+"        <tr style=\"background-color: #f5f5f5;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Importe</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.price }} {{ object.currency_id.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Fecha de Vencimiento</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.date_next_invoice }}</td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p>Por favor, realice su pago a tiempo para evitar interrupciones en el servicio.</p>\n"
+"    <p>Gracias por su preferencia.</p>\n"
+"    <br/>\n"
+"    <p>Atentamente,<br/><strong>{{ object.company_id.name }}</strong></p>\n"
+"</div>\n"
+"        "
+
+#. module: odoo_subscription_manager
+#: model:mail.template,body_html:odoo_subscription_manager.email_template_overdue_notification
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-family: Arial, sans-serif;\">\n"
+"    <p>Dear {{ object.subscriber_id.partner_id.name }},</p>\n"
+"    <p style=\"color: #d32f2f;\">\n"
+"        <strong>Your payment for {{ object.plan_id.name }} is overdue.</strong>\n"
+"        Your subscription has been placed on <strong>Pending Payment</strong> status.\n"
+"    </p>\n"
+"    <table style=\"border-collapse: collapse; width: 100%; margin: 16px 0;\">\n"
+"        <tr style=\"background-color: #fce4e4;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Subscription</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Plan</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.plan_id.name }}</td>\n"
+"        </tr>\n"
+"        <tr style=\"background-color: #fce4e4;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Amount Due</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.price }} {{ object.currency_id.name }}</td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p>\n"
+"        Please make your payment as soon as possible to avoid having your subscription\n"
+"        suspended and additional penalty charges.\n"
+"    </p>\n"
+"    <p>If you have any questions, please contact us immediately.</p>\n"
+"    <br/>\n"
+"    <p>Best regards,<br/><strong>{{ object.company_id.name }}</strong></p>\n"
+"</div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0; padding: 0; font-family: Arial, sans-serif;\">\n"
+"    <p>Estimado/a {{ object.subscriber_id.partner_id.name }},</p>\n"
+"    <p style=\"color: #d32f2f;\">\n"
+"        <strong>Su pago del plan {{ object.plan_id.name }} está vencido.</strong>\n"
+"        Su suscripción ha pasado al estado <strong>Pago Pendiente</strong>.\n"
+"    </p>\n"
+"    <table style=\"border-collapse: collapse; width: 100%; margin: 16px 0;\">\n"
+"        <tr style=\"background-color: #fce4e4;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Suscripción</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Plan</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.plan_id.name }}</td>\n"
+"        </tr>\n"
+"        <tr style=\"background-color: #fce4e4;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Importe Pendiente</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.price }} {{ object.currency_id.name }}</td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p>\n"
+"        Por favor, realice su pago lo antes posible para evitar la suspensión\n"
+"        de su suscripción y cargos adicionales por penalización.\n"
+"    </p>\n"
+"    <p>Si tiene alguna pregunta, comuníquese con nosotros de inmediato.</p>\n"
+"    <br/>\n"
+"    <p>Atentamente,<br/><strong>{{ object.company_id.name }}</strong></p>\n"
+"</div>\n"
+"        "
+
+#. module: odoo_subscription_manager
+#: model:mail.template,body_html:odoo_subscription_manager.email_template_payment_confirmation
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-family: Arial, sans-serif;\">\n"
+"    <p>Dear {{ object.partner_id.name }},</p>\n"
+"    <p style=\"color: #2e7d32;\">\n"
+"        <strong>Your payment has been successfully received. Thank you!</strong>\n"
+"    </p>\n"
+"    <table style=\"border-collapse: collapse; width: 100%; margin: 16px 0;\">\n"
+"        <tr style=\"background-color: #e8f5e9;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Invoice</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Date</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.invoice_date }}</td>\n"
+"        </tr>\n"
+"        <tr style=\"background-color: #e8f5e9;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Amount Paid</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.amount_total }} {{ object.currency_id.name }}</td>\n"
+"        </tr>\n"
+"        <t t-if=\"object.subscription_id\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Subscription</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.subscription_id.plan_id.name }}</td>\n"
+"        </tr>\n"
+"        </t>\n"
+"    </table>\n"
+"    <p>Your subscription remains active. We appreciate your continued support.</p>\n"
+"    <br/>\n"
+"    <p>Best regards,<br/><strong>{{ object.company_id.name }}</strong></p>\n"
+"</div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0; padding: 0; font-family: Arial, sans-serif;\">\n"
+"    <p>Estimado/a {{ object.partner_id.name }},</p>\n"
+"    <p style=\"color: #2e7d32;\">\n"
+"        <strong>¡Su pago ha sido recibido correctamente. ¡Muchas gracias!</strong>\n"
+"    </p>\n"
+"    <table style=\"border-collapse: collapse; width: 100%; margin: 16px 0;\">\n"
+"        <tr style=\"background-color: #e8f5e9;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Factura</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.name }}</td>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Fecha</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.invoice_date }}</td>\n"
+"        </tr>\n"
+"        <tr style=\"background-color: #e8f5e9;\">\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Importe Pagado</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.amount_total }} {{ object.currency_id.name }}</td>\n"
+"        </tr>\n"
+"        <t t-if=\"object.subscription_id\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Suscripción</strong></td>\n"
+"            <td style=\"padding: 8px; border: 1px solid #ddd;\">{{ object.subscription_id.plan_id.name }}</td>\n"
+"        </tr>\n"
+"        </t>\n"
+"    </table>\n"
+"    <p>Su suscripción continúa activa. Agradecemos su preferencia.</p>\n"
+"    <br/>\n"
+"    <p>Atentamente,<br/><strong>{{ object.company_id.name }}</strong></p>\n"
+"</div>\n"
+"        "
