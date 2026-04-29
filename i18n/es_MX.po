@@ -225,9 +225,14 @@ msgid "Price after Discount"
 msgstr "Precio con Descuento"
 
 #. module: odoo_subscription_manager
-#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_ids
-#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_count
+#. odoo-python
+#: code:addons/odoo_subscription_manager/models/subscription_subscriber.py:0
+#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
 #: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscriber__invoice_count
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_count
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_subscription_subscription__invoice_ids
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.subscription_subscriber_view_form
+#, python-format
 msgid "Invoices"
 msgstr "Facturas"
 
@@ -319,21 +324,6 @@ msgstr "Período de Gracia (Días)"
 msgid "Number of days after the due date before a subscription is paused."
 msgstr "Número de días después de la fecha de vencimiento antes de pausar la suscripción."
 
-
-#. module: odoo_subscription_manager
-#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_send_reminders
-msgid "Send Payment Reminders"
-msgstr "Enviar Recordatorios de Pago"
-
-#. module: odoo_subscription_manager
-#: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_send_reminders
-msgid "Enable automatic payment reminder emails before the due date."
-msgstr "Habilitar correos automáticos de recordatorio de pago antes del vencimiento."
-
-#. module: odoo_subscription_manager
-#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_reminder_days
-msgid "Days Before Due"
-msgstr "Días Antes del Vencimiento"
 
 #. module: odoo_subscription_manager
 #: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_reminder_days
@@ -578,11 +568,25 @@ msgid "Notifications"
 msgstr "Notificaciones"
 
 #. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_send_reminders
 #: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
-msgid "Send Reminder (Days Before Due)"
-msgstr "Enviar Recordatorio (Días Antes del Vencimiento)"
+msgid "Send Payment Reminders"
+msgstr "Enviar Recordatorios de Pago"
 
 #. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_send_reminders
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Enable automatic payment reminder emails before the due date."
+msgstr "Habilitar correos automáticos de recordatorio de pago antes del vencimiento."
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,field_description:odoo_subscription_manager.field_res_config_settings__subscription_reminder_days
+#: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
+msgid "Days Before Due"
+msgstr "Días Antes del Vencimiento"
+
+#. module: odoo_subscription_manager
+#: model:ir.model.fields,help:odoo_subscription_manager.field_res_config_settings__subscription_reminder_days
 #: model_terms:ir.ui.view,arch_db:odoo_subscription_manager.res_config_settings_view_form
 msgid "Days before the due date to send a payment reminder email."
 msgstr "Días antes del vencimiento para enviar un correo de recordatorio de pago."
@@ -664,12 +668,6 @@ msgstr "Nuevo"
 #, python-format
 msgid "Cannot delete subscription '%s'. Only draft or finished subscriptions can be deleted."
 msgstr "No se puede eliminar la suscripción '%s'. Solo se pueden eliminar suscripciones en borrador o finalizadas."
-
-#. module: odoo_subscription_manager
-#: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0
-#, python-format
-msgid "Invoices"
-msgstr "Facturas"
 
 #. module: odoo_subscription_manager
 #: code:addons/odoo_subscription_manager/models/subscription_subscription.py:0

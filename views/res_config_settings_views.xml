@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
-                <app string="Subscriptions" name="odoo_subscription_manager"
+                <app string="Suscripciones" name="odoo_subscription_manager"
                      logo="/odoo_subscription_manager/static/description/menu_icon.png"
                      groups="base.group_system">
                     <block title="Billing">
